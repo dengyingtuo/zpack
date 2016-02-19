@@ -187,7 +187,7 @@ bool Package::getFileInfo(u32 index, Char* filenameBuffer, u32 filenameBufferSiz
 	}
 	if (filenameBuffer != NULL)
 	{
-		Strcpy(filenameBuffer, filenameBufferSize, m_filenames[index].c_str());
+        snprintf(filenameBuffer, filenameBufferSize, "%s", m_filenames[index].c_str());
 		filenameBuffer[filenameBufferSize - 1] = 0;
 	}
 	const FileEntry& entry = getFileEntry(index);
@@ -296,7 +296,7 @@ bool Package::addFile(const Char* filename, const Char* externalFilename, u32 fi
 		getFileEntry(insertedIndex).flag |= FILE_DELETE;
 		return false;
 	}
-	
+
 	if (fileSize == 0)
 	{
 		entry.flag &= (~FILE_COMPRESS);
@@ -686,13 +686,13 @@ bool Package::readFilenames()
 			return false;
 		}
 	}
-	
+
 	String names;
 	names.assign((Char*)&dstBuffer[0], m_header.originFilenamesSize / sizeof(Char));
-	
+
 	u32 fileCount = getFileCount();
 	m_filenames.resize(fileCount);
-	
+
 	IStringStream iss(names, IStringStream::in);
 	for (u32 i = 0; i < fileCount; ++i)
 	{

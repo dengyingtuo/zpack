@@ -33,6 +33,11 @@ namespace zp
 	#define Strcpy strcpy_s
 #endif
 
+#if !defined (_MSC_VER)
+#define _fseeki64 fseek
+#define _ftelli64 ftell
+#endif
+
 typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned long u32;
